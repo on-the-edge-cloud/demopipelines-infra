@@ -9,7 +9,6 @@ jobs:
   displayName: Deploy to VM - TestEnvironment
   environment: 
    name: TestEnvironment
-   resourceName: linuxMSI
    resourceType: virtualMachine
   strategy:
      runOnce:
