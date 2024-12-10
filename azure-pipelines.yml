@@ -1,9 +1,6 @@
 trigger: 
 - main
 
-pool: 
-  name: Linux-MSI-local
-
 jobs:
 - deployment: VMDeploy
   displayName: Deploy to VM - TestEnvironment
