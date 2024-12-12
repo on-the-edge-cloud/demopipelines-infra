@@ -1,0 +1,36 @@
+jobs:
+  - deployment: DeployDev
+    environment:
+      # smarthotel-dev.bookings
+      name: smarthotel
+      resourceType: VirtualMachine
+      tags: dev,web
+    pool:
+      name: smarthotel-devPool
+    strategy:
+      canary:
+        increments: [10, 20, 25, 33]
+        preDeploy:
+          steps:
+            - script: initialize, cleanup....
+        deploy:
+          steps:
+            - script: echo deploy updates...
+            - task: KubernetesManifest@0
+              inputs:
+                action: $(strategy.action)
+                namespace: 'default'
+                strategy: $(strategy.name)
+                percentage: $(strategy.increment)
+                manifests: 'manifest.yml'
+        postRouteTraffic:
+          pool: server
+          steps:
+            - script: echo monitor application health...
+        on:
+          failure:
+            steps:
+              - script: echo clean-up, rollback...
+          success:
+            steps:
+              - script: echo checks passed, notify...

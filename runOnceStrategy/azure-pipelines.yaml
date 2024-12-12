@@ -1,0 +1,18 @@
+variables:
+  environmentName: 'EmptyEnvironment'
+
+jobs:
+  # Track deployments on the environment.
+- deployment: DeployTest
+  displayName: test deployment
+  pool:
+    name: 'Linux-MSI-local'
+  # Creates an environment if it doesn't exist.
+  environment: $(environmentName)
+  strategy:
+    # Default deployment strategy, more coming...
+    runOnce:
+      deploy:
+        steps:
+        - checkout: self
+        - script: echo my first deployment
