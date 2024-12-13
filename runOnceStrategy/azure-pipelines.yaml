@@ -1,6 +1,12 @@
 variables:
   environmentName: 'EmptyEnvironment'
 
+resources:
+  pipelines:
+    - pipeline: demopipelinesYAML-resource
+      source: demopipelinesYAML
+
+
 jobs:
   # Track deployments on the environment.
 - deployment: DeployTest
@@ -16,3 +22,5 @@ jobs:
         steps:
         - checkout: self
         - script: echo my first deployment
+        - download: demopipelinesYAML-resource
+          artifact: drop
