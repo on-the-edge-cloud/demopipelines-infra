@@ -3,8 +3,8 @@ variables:
 
 resources:
   pipelines:
-    - pipeline: demopipelinesYAML-resource
-      source: demopipelinesYAML
+    - pipeline: demopipelines-resource
+      source: demopipelines
 
 
 jobs:
@@ -22,5 +22,5 @@ jobs:
         steps:
         - checkout: self
         - script: echo my first deployment
-        - download: demopipelinesYAML-resource
-          artifact: drop
+        - download: demopipelines-resource
+          artifact: drop-ontheedge
